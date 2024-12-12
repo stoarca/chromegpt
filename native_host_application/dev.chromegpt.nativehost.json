@@ -4,6 +4,6 @@
   "path": "/opt/chromegpt/chromegpt.py",
   "type": "stdio",
   "allowed_origins": [
-    "chrome-extension://cbkbcnfdefbiccdilhbljbiomjanfbin/"
+    "chrome-extension://dhphhnhnhllhbflkdjlknccohgfiapik/"
   ]
 }

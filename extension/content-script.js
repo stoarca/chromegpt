@@ -27,7 +27,7 @@ function createFloatingButtonForBlock(block, retryCount = 10) {
   }
 
   applyBtn.onclick = () => {
-    const codeWithoutFileComment = codeText.split('\n').slice(1).join('\n');
+    const codeWithoutFileComment = block.innerText.trim().split('\n').slice(1).join('\n');
     const filePath = match[1].trim();
 
     chrome.runtime.sendMessage(
