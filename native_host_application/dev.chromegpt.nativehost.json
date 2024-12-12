@@ -1,0 +1,10 @@
+{
+  "name": "dev.chromegpt.nativehost",
+  "description": "Native messaging host for ChromeGPT",
+  "path": "/opt/chromegpt/chromegpt.py",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://cbkbcnfdefbiccdilhbljbiomjanfbin/"
+  ]
+}
+

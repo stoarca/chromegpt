@@ -1,0 +1,23 @@
+{
+  "name": "Local Filesystem Apply",
+  "version": "1.0",
+  "manifest_version": 3,
+  "description": "Adds a button to apply code blocks to local filesystem.",
+  "permissions": ["scripting", "storage", "nativeMessaging"],
+  "host_permissions": ["https://chat.openai.com/*", "https://chatgpt.com/c/*"],
+  "action": {
+    "default_title": "Local FS Apply"
+  },
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chat.openai.com/*", "https://chatgpt.com/c/*"],
+      "js": ["content-script.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
+
