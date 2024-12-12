@@ -35,7 +35,12 @@ function createFloatingButtonForBlock(block) {
         } else if (response && response.error) {
           alert(response.error);
         } else {
-          alert("File applied successfully!");
+          // Success: Glow button green for 1 second
+          applyBtn.style.transition = 'background-color 0.3s ease';
+          applyBtn.style.backgroundColor = 'green';
+          setTimeout(() => {
+            applyBtn.style.backgroundColor = '#007aff';
+          }, 1000);
         }
       }
     );

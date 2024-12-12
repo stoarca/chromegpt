@@ -33,7 +33,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 function writeFileViaNativeHost(filePath, content, callback) {
-  const port = chrome.runtime.connectNative('com.example.nativehost');
+  const port = chrome.runtime.connectNative('dev.chromegpt.nativehost');
   let responseHandled = false;
 
   port.onMessage.addListener((msg) => {
