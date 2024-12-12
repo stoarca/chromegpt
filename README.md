@@ -1,4 +1,3 @@
-// FILE: README.md
 # ChromeGPT
 
 ChromeGPT is a Chrome extension that allows you to apply code blocks directly to your local filesystem from web pages like ChatGPT. When you encounter a code block with a top-line comment specifying a file path (e.g. `// FILE: /path/to/file.ext`), the extension provides a floating button to write that code to your local filesystem (subject to configured directory permissions).
@@ -50,5 +49,3 @@ Before using this extension in a production environment or on sensitive data, yo
    Test the extension in a controlled environment (e.g., a sandbox or a VM) with dummy directories and files before applying it to your main system.
 
 By taking these steps, you can be confident that the extension is trustworthy and functions as intended without malicious behavior.
-
-

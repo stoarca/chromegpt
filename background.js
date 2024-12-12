@@ -1,8 +1,27 @@
 // Background script communicates with native host and enforces directory limits
 
+function normalizePath(path) {
+  // Normalize the file path to prevent escaping allowed directories via '../'
+  const parts = path.split('/');
+  const stack = [];
+  for (const part of parts) {
+    if (part === '' || part === '.') {
+      continue;
+    } else if (part === '..') {
+      stack.pop();
+    } else {
+      stack.push(part);
+    }
+  }
+  return '/' + stack.join('/');
+}
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'writeFile') {
-    const { filePath, content } = message;
+    let { filePath, content } = message;
+
+    // Normalize the file path before checking allowed directories
+    filePath = normalizePath(filePath);
 
     // Check if filePath is in allowed directories
     chrome.storage.sync.get('allowedDirectories', ({ allowedDirectories }) => {
@@ -11,7 +30,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         return;
       }
 
-      const allowed = allowedDirectories.some(dir => filePath.startsWith(dir));
+      const allowed = allowedDirectories.some(dir => {
+        const normalizedDir = normalizePath(dir);
+        return filePath.startsWith(normalizedDir);
+      });
       if (!allowed) {
         sendResponse({ error: "The file path is not within the allowed directories. Go to the extension options to configure." });
         return;
@@ -52,4 +74,3 @@ function writeFileViaNativeHost(filePath, content, callback) {
 
   port.postMessage({ action: 'writeFile', path: filePath, content: content });
 }
-

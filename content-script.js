@@ -1,4 +1,3 @@
-// FILE: /home/serge/projects/chromegpt/content-script.js
 function createFloatingButtonForBlock(block) {
   const codeText = block.innerText.trim();
   const firstLine = codeText.split('\n')[0];

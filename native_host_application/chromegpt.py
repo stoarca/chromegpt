@@ -41,4 +41,3 @@ while True:
             send_message({"error": str(e)})
     else:
         send_message({"error": "Unknown action"})
-

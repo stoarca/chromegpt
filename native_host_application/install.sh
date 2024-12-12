@@ -18,4 +18,3 @@ sudo chmod +x "$INSTALL_DIR/chromegpt.py"
 # Copy the native messaging host manifest
 sudo cp dev.chromegpt.nativehost.json "$HOST_MANIFEST"
 sudo chmod 644 "$HOST_MANIFEST"
-
