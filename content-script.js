@@ -1,3 +1,4 @@
+// FILE: /home/serge/projects/chromegpt/content-script.js
 function createFloatingButtonForBlock(block) {
   const applyBtn = document.createElement('button');
   applyBtn.innerText = "Apply to local filesystem";
@@ -26,8 +27,10 @@ function createFloatingButtonForBlock(block) {
     }
 
     const filePath = match[1].trim();
+    const codeWithoutFileComment = codeText.split('\n').slice(1).join('\n');
+
     chrome.runtime.sendMessage(
-      { action: 'writeFile', filePath: filePath, content: codeText },
+      { action: 'writeFile', filePath: filePath, content: codeWithoutFileComment },
       response => {
         if (chrome.runtime.lastError) {
           console.error(chrome.runtime.lastError.message);
@@ -65,4 +68,3 @@ function observeCodeBlocks() {
 const observer = new MutationObserver(observeCodeBlocks);
 observer.observe(document.body, { childList: true, subtree: true });
 observeCodeBlocks();
-
