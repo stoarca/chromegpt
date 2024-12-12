@@ -1,5 +1,10 @@
-function createFloatingButtonForBlock(block) {
+function createFloatingButtonForBlock(block, retryCount = 10) {
   const codeText = block.innerText.trim();
+  if (!codeText.includes('\n') && retryCount > 0) {
+    setTimeout(() => createFloatingButtonForBlock(block, retryCount - 1), 500);
+    return;
+  }
+
   const firstLine = codeText.split('\n')[0];
   const filePattern = /^\/\/\s*FILE:\s*(.+)$/;
   const match = firstLine.match(filePattern);
@@ -60,3 +65,4 @@ function observeCodeBlocks() {
 const observer = new MutationObserver(observeCodeBlocks);
 observer.observe(document.body, { childList: true, subtree: true });
 observeCodeBlocks();
+
