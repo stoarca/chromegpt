@@ -6,13 +6,19 @@ if [ $? -ne 0 ]; then
 fi
 
 cd $(git rev-parse --show-toplevel)
-if [ -z "$1" ]; then
+if [ $# -eq 0 ]; then
   # If no parameter is given, dump the whole git directory
   FILES=$(git ls-files)
 else
-  FILES=$(grep -rl "PROJECT ID: $1" .)
+  PATTERNS=""
+  for pid in "$@"; do
+    PATTERNS+="(PROJECT ID: $pid)|"
+  done
+  PATTERNS="${PATTERNS%|}"
+
+  FILES=$(grep -rlE "$PATTERNS" .)
   if [ -z "$FILES" ]; then
-    echo "No files found containing 'projectId: $1'"
+    echo "No files found containing any of the specified project IDs."
     exit 0
   fi
 fi
@@ -32,7 +38,6 @@ if ! command -v xclip >/dev/null 2>&1; then
 fi
 
 # Copy to clipboard
-echo -e "$OUTPUT" | xclip -selection clipboard
+echo "$OUTPUT" | xclip -selection clipboard
 
 echo "Copied files to clipboard"
-
