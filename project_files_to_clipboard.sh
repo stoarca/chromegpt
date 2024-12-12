@@ -23,12 +23,14 @@ else
   fi
 fi
 
-OUTPUT="I've attached all the relevant files. Please print out updated versions of all files that have changed. Do not print out unchanged files. Each file should be in its own code block and should have a FILE comment at the top with its absolute path. Please make only the changes I've asked and no others. In particular, do not modify or delete any comments unless they're directly related to your changes. Do not add any comments unless they would be useful to someone reading this code in a year.\n\n"
+OUTPUT="I've attached all the relevant files. Please print out updated versions of all files that have changed. Do not print out unchanged files. Each file should be in its own code block and should have a FILE comment at the top with its absolute path. Please make only the changes I've asked and no others. In particular, do not modify or delete any comments unless they're directly related to your changes. Do not add any comments unless they would be useful to someone reading this code in a year."
+OUTPUT+=$'\n\n'
 
 for f in $FILES; do
-  OUTPUT+="// FILE: $(realpath $f)\n"
+  OUTPUT+="// FILE: $(realpath $f)"
+  OUTPUT+=$'\n'
   OUTPUT+=$(cat "$f")
-  OUTPUT+="\n\n"
+  OUTPUT+=$'\n\n'
 done
 
 # Install xclip if not present
