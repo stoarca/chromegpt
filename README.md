@@ -10,15 +10,14 @@ Currently it only works on Linux.
 - **Native Messaging Host:** Utilizes a native host application to securely write files to your system, avoiding potential security pitfalls of direct filesystem access from the browser.
 
 ## Setup
-1. **Verify the scripts are safe:**
+1. **Clone this repository**
+2. **Verify the scripts are safe:**
    - This extension is very small but requires the ability to write to your filesystem
    - Inspect `background.js`, `content-script.js`, and `native_host_application/chromegpt.py` for any suspicious code.  
    - Ensure that file writes are only occurring in user-configured directories.  
    - Confirm that no external network requests or unexpected operations occur.
     
-   This will place the `dev.chromegpt.nativehost.json` manifest in the appropriate directory and the `chromegpt.py` script in `/opt/chromegpt`.
-
-2. **Pack and Install the Extension in Chrome:**
+3. **Pack and Install the Extension in Chrome:**
    - Go to `chrome://extensions` in your Chrome browser.
    - Enable **Developer mode** (toggle in the top right).
    - Click **Pack extension...** and select the directory containing this project's `manifest.json`.
@@ -26,7 +25,7 @@ Currently it only works on Linux.
    - Install the resulting `.crx` file in Chrome by going to `chrome://extensions` and dragging it in.
    - Look at the extension id, you will need it for the next step
 
-3. **Install the Native Host Application:**
+4. **Install the Native Host Application:**
    - Navigate to the `native_host_application` directory.
    - **Very important**: Verify that the allowed-origins in dev.chromegpt.nativehost.json matches the extension id from the previous step. If it does not, the extension will not be able to communicate with the native host app.
    - Run `install.sh` to install the Python-based native host script and the JSON manifest:
@@ -34,13 +33,15 @@ Currently it only works on Linux.
      cd native_host_application
      ./install.sh
      ```
+   This will place the `dev.chromegpt.nativehost.json` manifest in the appropriate browser directory and the `chromegpt.py` script in `/opt/chromegpt`.
+
    
-4. **Configure Allowed Directories:**
+5. **Configure Allowed Directories:**
    - After the extension is loaded, open its options page (found through the extension’s details page or by clicking the extension icon and selecting "Options").
    - Add the paths of directories where you want to allow file writes.
    - Click **Save**.
 
-4. **Verify and Run the Project to Clipboard File:**
+6. **Verify and Run the Project to Clipboard File:**
    - Ensure that `project_files_to_clipboard.sh` is present and functional in the project root.
    - Running this script in a git directory will copy a prompt with your files to the clipboard. The prompt will have instructions to output code in the correct format.
    - If you have a big project, you can select a subset of the files by including a comment with `PROJECT ID: <my project id>` in them, and then running `project_files_to_clipboard.sh` to select just those files.
