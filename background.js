@@ -13,7 +13,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
       const allowed = allowedDirectories.some(dir => filePath.startsWith(dir));
       if (!allowed) {
-        sendResponse({ error: "The file path is not within the allowed directories." });
+        sendResponse({ error: "The file path is not within the allowed directories. Go to the extension options to configure." });
         return;
       }
 
