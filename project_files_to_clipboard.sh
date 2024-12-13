@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-if [ $? -ne 0 ]; then
-  echo "Not a git repository."
-  exit 1
-fi
-
 cd $(git rev-parse --show-toplevel)
 if [ $# -eq 0 ]; then
   # If no parameter is given, dump the whole git directory
@@ -16,14 +11,14 @@ else
   done
   PATTERNS="${PATTERNS%|}"
 
-  FILES=$(grep -rlE "$PATTERNS" .)
+  FILES=$(git ls-files | xargs grep -rlE "$PATTERNS" 2>/dev/null)
   if [ -z "$FILES" ]; then
     echo "No files found containing any of the specified project IDs."
     exit 0
   fi
 fi
 
-OUTPUT="I've attached all the relevant files. Please print out updated versions of all files that have changed. Do not print out unchanged files. Each file should be in its own code block and should have a FILE comment at the top with its absolute path. Please make only the changes I've asked and no others. In particular, do not modify or delete any comments unless they're directly related to your changes. Do not add any comments unless they would be useful to someone reading this code in a year."
+OUTPUT="I've attached all the relevant files. Please print out updated versions of all files that have changed. Do not print out unchanged files. Each file should be in its own code block and should have a FILE comment at the top with its absolute path. Please make only the changes I've asked and no others. In particular, do not modify or delete any comments unless they're directly related to your changes. *VERY IMPORTANT*: Do not remove any PROJECT ID comment. Do not add any comments unless they would be useful to someone reading this code in a year."
 OUTPUT+=$'\n\n'
 
 for f in $FILES; do
