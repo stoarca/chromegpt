@@ -4,7 +4,7 @@
   "manifest_version": 3,
   "description": "Adds a button to apply code blocks to local filesystem.",
   "permissions": ["scripting", "storage", "nativeMessaging"],
-  "host_permissions": ["https://chat.openai.com/*", "https://chatgpt.com/c/*"],
+  "host_permissions": ["https://chat.openai.com/*", "https://chatgpt.com/c/*", "https://x.com/i/grok*"],
   "action": {
     "default_title": "ChromeGPT"
   },
@@ -14,7 +14,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://chat.openai.com/*", "https://chatgpt.com/c/*"],
+      "matches": ["https://chat.openai.com/*", "https://chatgpt.com/c/*", "https://x.com/i/grok*"],
       "js": ["content-script.js"],
       "run_at": "document_end"
     }

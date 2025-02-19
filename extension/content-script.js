@@ -54,12 +54,18 @@ function createFloatingButtonForBlock(block, retryCount = 10) {
 }
 
 function observeCodeBlocks() {
-  const codeBlocks = document.querySelectorAll('code.hljs');
-  codeBlocks.forEach(block => {
-    if (block.dataset.hasFsButton) return;
+  const codeBlocks = [
+    ...document.querySelectorAll('code.hljs'),
+    ...document.querySelectorAll('[data-testid="markdown-code-block"] > pre')
+  ];
+  for (let i = 0; i < codeBlocks.length; ++i) {
+    let block = codeBlocks[i];
+    if (block.dataset.hasFsButton) {
+      continue;
+    }
     block.dataset.hasFsButton = 'true';
     createFloatingButtonForBlock(block);
-  });
+  }
 }
 
 const observer = new MutationObserver(observeCodeBlocks);

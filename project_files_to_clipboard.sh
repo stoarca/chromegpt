@@ -18,7 +18,7 @@ else
   fi
 fi
 
-OUTPUT="I've attached all the relevant files. Please print out updated versions of all files that have changed. Do not print out unchanged files. Each file should be in its own code block and should have a FILE comment at the top with its absolute path. Please make only the changes I've asked and no others. In particular, do not modify or delete any comments unless they're directly related to your changes. *VERY IMPORTANT*: Do not remove any PROJECT ID comment. Do not add any comments unless they would be useful to someone reading this code in a year."
+OUTPUT="I've attached all the relevant files. Please print out updated versions of all files that have changed. Print out changed files in full, and do not print out unchanged files. Each file should be in its own code block and should have a FILE comment at the top with its absolute path. Please make only the changes I've asked and no others. In particular, do not modify or delete any comments. *VERY IMPORTANT*: Do not remove any PROJECT ID comment, under any circumstance! Do not add any extra comments unless explicitly asked."
 OUTPUT+=$'\n\n'
 
 for f in $FILES; do
